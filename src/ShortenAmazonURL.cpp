@@ -1,4 +1,4 @@
-#include "inc/ShortenAmazonURL.hpp"
+﻿#include "inc/ShortenAmazonURL.hpp"
 #include <optional>
 #include <iostream>
 
@@ -8,15 +8,15 @@ std::optional<std::string> AmazonURLShortenizer::Shorten(const std::string& url)
         return std::nullopt;
     }
 
-    std::filesystem::path result = Constants::Amazon::ROOT_PATH;
+    auto result = Constants::Amazon::ROOT_PATH;
 
     //dpかgpで始まる部分を探す なければnulloptを返す
     auto identifierPosition = url.find("/dp/");
     if(identifierPosition == std::string::npos){
         identifierPosition = url.find("/gp/");
-        result /= "gp";
+        result += "/gp";
     }else{
-        result /= "dp";
+        result += "/dp";
     }
     if(identifierPosition == std::string::npos){
         return std::nullopt;
@@ -32,5 +32,5 @@ std::optional<std::string> AmazonURLShortenizer::Shorten(const std::string& url)
     }
 
     //substr
-    return (result / url.substr(identifierPosition, productIdentifierEndPosition - identifierPosition)).string();
+    return result + "/" + url.substr(identifierPosition, productIdentifierEndPosition - identifierPosition);
 }
