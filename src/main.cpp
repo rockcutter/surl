@@ -7,9 +7,14 @@
 #include "inc/URLShortenizer.hpp"
 #include "inc/ShortenAmazonURL.hpp"
 
+namespace Constant{
+    inline const std::string SURL_VERSION = "1.0.0";
+}
+
 int main(const int argc, const char * const * const argv){
     if(argc < 2){
-        std::cout << "Usage:" << std::endl
+        std::cout << "surl version " << Constant::SURL_VERSION << std::endl
+        << "Usage:" << std::endl
         << "surl [url]" << std::endl;
         return 1;
     }
